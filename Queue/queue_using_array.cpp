@@ -37,7 +37,6 @@ struct Queue{
         else
             q[++rear] = x;
             cout << "q[rear]: " << q[rear] << endl;
-
     }
 
     int dequeue(){
