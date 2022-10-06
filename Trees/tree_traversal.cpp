@@ -1,107 +1,4 @@
-#include <iostream>
-
-using namespace std;
-
-struct Node{
-    int data;
-    Node *left, *right;
-
-    Node(){
-        left = right = NULL;
-    }
-
-    Node(int x){
-        data = x;
-        left = right = NULL;
-    }
-};
-
-struct Stack{
-    Node *data;
-    
-};
-
-struct Queue{
-    int size, rear;
-    Node **q;
-
-    Queue(){
-        cout << "\nEnter the required size of the queue: ";
-        cin >> size;
-        cout << endl;
-        rear = -1;
-        q = new Node*[size];
-    }
-
-    bool isEmpty(){
-        return (rear == -1);
-    }
-
-    bool isFull(){
-        return (rear == size - 1);
-    }
-
-    void enqueue(Node *x){
-        if(isFull())
-            cout << "\nQueue Overflow!" << endl;
-        else
-            q[++rear] = x;
-    }
-
-    Node *dequeue(){
-        if(isEmpty())
-            return NULL;
-        else{
-            Node *x = q[0];
-
-            for(int i = 0; i < rear; i++)
-                q[i] = q[i+1];
-            
-            rear--;
-
-            return x;
-        }
-    }
-
-    void display(){
-        cout << "\nQueue: ";
-
-        for(int i = 0; i <= rear; i++)
-            cout << q[i] << " ";
-        
-        cout << endl;
-    }
-};
-
-// Recursive Tree Traversal 
-
-void preorder_traversal(Node *tree){
-    if(tree){
-        cout << tree->data << " ";
-        preorder_traversal(tree->left);
-        preorder_traversal(tree->right);
-    }
-}
-
-void inorder_traversal(Node *tree){
-    if(tree){
-        inorder_traversal(tree->left);
-        cout << tree->data << " ";
-        inorder_traversal(tree->right);
-    }
-}
-
-void postorder_traversal(Node *tree){
-    if(tree){
-        postorder_traversal(tree->left);
-        postorder_traversal(tree->right);
-        cout << tree->data << " ";
-    }
-}
-
-// Iterative Tree Traversal 
-
-// ...
+#include "tree_traversal.h"
 
 int main(){
     Queue Q;
@@ -149,6 +46,12 @@ int main(){
 
     cout << "Postorder traversal: ";
     postorder_traversal(root);
+    cout << endl << endl;
+
+    iterative_preorder(root);
+    cout << endl;
+
+    iterative_inorder(root);
     cout << endl;
 
     return 0;
