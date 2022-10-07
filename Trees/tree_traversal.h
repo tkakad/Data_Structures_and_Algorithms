@@ -24,10 +24,8 @@ struct Queue{
     int size, rear;
     Node **q;
 
-    Queue(){
-        cout << "\nEnter the required size of the queue: ";
-        cin >> size;
-        cout << endl;
+    Queue(int s){
+        size = s; 
         rear = -1;
         q = new Node*[size];
     }
@@ -176,10 +174,8 @@ void iterative_inorder(Node *root){
         // cout << "temp == NULL --> " << (temp == NULL) << endl;
         // cout << "st.isEmpty(&top) --> " << (st.isEmpty(&top)) << endl;
         // st.display(&top);
-        // cout << endl;
+         // cout << endl;
     }
-
-    cout << endl;
 }
 
 // void iterative_postorder(Node *root){
@@ -202,6 +198,33 @@ void iterative_inorder(Node *root){
 //         }
 //     }
 // }
+
+void level_order_traversal(Node *tree){
+    Queue Q(10);
+
+    cout << "Level Order traversal: ";
+    
+    if(tree){
+        cout << tree->data << " ";
+        Q.enqueue(tree);
+    }
+
+    while(!Q.isEmpty()){
+        Node *t = Q.dequeue();
+
+        if(t->left){
+            cout << t->left->data << " ";
+            Q.enqueue(t->left);
+        }
+        
+        if(t->right){
+            cout << t->right->data << " ";
+            Q.enqueue(t->right);
+        }
+    }
+
+    cout << endl;
+}
 
 // Recursive Tree Traversal 
 
@@ -227,4 +250,32 @@ void postorder_traversal(Node *tree){
         postorder_traversal(tree->right);
         cout << tree->data << " ";
     }
+}
+
+// calculation functions
+
+int count(Node *tree){
+    int x, y;
+
+    if(tree){
+        x = count(tree->left);
+        y = count(tree->right);
+
+        //Returns height of the tree
+
+        // if(x > y)
+        //     return x + 1;
+        // else
+        //     return y + 1;
+
+        // Returns number of elements in the tree
+        
+           return x + y + 1;
+
+        // Returns sum of all elements in the tree
+
+        // return x + y + tree->data;
+    }
+
+    return 0;
 }

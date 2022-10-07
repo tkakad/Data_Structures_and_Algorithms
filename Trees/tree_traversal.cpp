@@ -1,7 +1,7 @@
 #include "tree_traversal.h"
 
 int main(){
-    Queue Q;
+    Queue Q(10);
     Node *root = new Node;
     int l_val, r_val;
     
@@ -40,11 +40,11 @@ int main(){
     preorder_traversal(root);
     cout << endl;
 
-    cout << "Inorder traversal: ";
+    cout << "\nInorder traversal: ";
     inorder_traversal(root);
     cout << endl;
 
-    cout << "Postorder traversal: ";
+    cout << "\nPostorder traversal: ";
     postorder_traversal(root);
     cout << endl << endl;
 
@@ -52,6 +52,9 @@ int main(){
     cout << endl;
 
     iterative_inorder(root);
+    cout << endl;
+
+    level_order_traversal(root);
     cout << endl;
 
     return 0;
