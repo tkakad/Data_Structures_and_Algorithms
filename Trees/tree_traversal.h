@@ -270,7 +270,7 @@ int count(Node *tree){
 
         // Returns number of elements in the tree
         
-           return x + y + 1;
+        return x + y + 1;
 
         // Returns sum of all elements in the tree
 
