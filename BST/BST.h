@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -86,7 +87,81 @@ struct Queue{
     }
 };
 
-TreeNode *create_BST(){
+void level_order_traversal(TreeNode *root){
+    if(root == NULL){
+        cout << "Empty Tree!" << endl;
+    }
+    else{
+        TreeNode *t = root;
+        Queue Q;
+        Q.enqueue(t);
+
+        cout << "Level Order Traversal: ";
+
+        while(!Q.isEmpty()){
+            t = Q.dequeue();
+            cout << t->data << " ";
+
+            if(t->left)
+                Q.enqueue(t->left);
+            
+            if(t->right)
+                Q.enqueue(t->right);
+        }
+        
+        cout << endl;
+    }
+}
+
+void inorder_traversal(TreeNode *t){
+    if(t){
+        inorder_traversal(t->left);
+        cout << t->data << " ";
+        inorder_traversal(t->right);
+    }
+}
+
+TreeNode *create_BST(vector<int> arr){
+    if(arr.size() == 0)
+        return NULL;
+    
+    TreeNode *root = new TreeNode(arr[0]);
+    TreeNode *t = root;
+
+    int i = 1;
+
+    while(i < arr.size()){
+        if(t->data == arr[i]){
+            cout << "The number already exists in the tree" << endl;
+            i++;
+            continue;
+        }
+        else if(arr[i] > t->data){
+            if(t->right == NULL){
+                TreeNode *p = new TreeNode(arr[i]);
+                t->right = p;
+                t = root;
+                i++;
+            }
+            else
+                t = t->right;
+        }
+        else{
+            if(t->left == NULL){
+                TreeNode *p = new TreeNode(arr[i]);
+                t->left = p;
+                t = root;
+                i++;
+            }
+            else
+                t = t->left;
+        }
+    }
+    
+    return root;
+}
+
+TreeNode *create_tree(){
     Queue Q;
     TreeNode *t, *root = new TreeNode;
 
@@ -125,74 +200,96 @@ TreeNode *create_BST(){
     return root;
 }
 
-void level_order_traversal(TreeNode *root){
-    if(root == NULL){
-        cout << "Empty Tree!" << endl;
-    }
-    else{
-        TreeNode *t = root;
-        Queue Q;
-        Q.enqueue(t);
+// Needs to be fixed!
 
-        cout << "Level Order Traversal: ";
+// TreeNode* recursive_insert_BST(TreeNode* tree, int num){
+//     TreeNode *t;
 
-        while(!Q.isEmpty()){
-            t = Q.dequeue();
-            cout << t->data << " ";
+//     if(!tree){
+//         t = new TreeNode(num);
+//         return t;
+//     }
 
-            if(t->left)
-                Q.enqueue(t->left);
-            
-            if(t->right)
-                Q.enqueue(t->right);
-        }
-        
-        cout << endl;
-    }
-}
+//     if(num < tree->data)
+//         tree->left = recursive_insert_BST(tree->left, num);
+    
+//     if(num > tree->data)
+//         tree->right = recursive_insert_BST(tree->right, num);
+    
+//     return t;
+// }
 
-void inorder_traversal(TreeNode *t){
-    if(t){
-        inorder_traversal(t->left);
-        cout << t->data << " ";
-        inorder_traversal(t->right);
-    }
-}
-
-void insert_BST(TreeNode *root){
+TreeNode *iterative_insert_BST(TreeNode *root){
     int x;
-    bool found = false;
 
-    cout << "Enter the number you want to insert in the BST: ";
+    cout << "Enter the number you want to insert in the BST (iteratively): ";
     cin >> x;
     cout << endl;
 
     TreeNode *t = root;
     
-    while(!found){
+    while(true){
         if(t->data == x){
             cout << "The number already exsists in the tree!" << endl;
-            found = true;
+            return root;
         }
         else if(x > t->data){
             if(t->right == NULL){
-                TreeNode *p = new TreeNode;
-                p->data = x;
+                TreeNode *p = new TreeNode(x);
                 t->right = p;
-                found = true;
+                return root;
             }
             else
                 t = t->right;
+                
         }
         else{
             if(t->left == NULL){
-                TreeNode *p = new TreeNode;
-                p->data = x;
+                TreeNode *p = new TreeNode(x);
                 t->left = p;
-                found = true;
+                return root;
             }
             else
                 t = t->left;
         }
     }
+
+    return root;
+}
+
+TreeNode *recursive_search(TreeNode* tree){
+    int x;
+
+    cout << "Enter the number to be searched in the tree: ";
+    cin >> x;
+
+    if(tree){
+        if(x == tree->data)
+            return tree;
+        else if(x > tree->data)
+            recursive_search(tree->right);
+        else
+            recursive_search(tree->left);
+    }
+
+    return NULL;
+}
+
+TreeNode *iterative_search(TreeNode* tree){
+    int x;
+    TreeNode *t = tree;
+
+    cout << "Enter the number to be searched in the tree: ";
+    cin >> x;
+
+    while(t){
+        if(t->data == x)
+            return t;
+        else if(t->data > x)
+            t = t->left;
+        else
+            t = t->right;
+    }
+
+    return NULL;
 }
