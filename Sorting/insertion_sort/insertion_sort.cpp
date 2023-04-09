@@ -52,7 +52,7 @@ vector<int> insertion_sort(vector<int> numbers){
 }
 
 int main(){
-    vector<int> numbers = { 8, 5, 7, 3, 2 };
+    vector<int> numbers = { 3, 5, 4, 8, 10, 2, 6, 1, 4 };
 
     cout << "Before Insertion-Sort: ";
     display(numbers);
